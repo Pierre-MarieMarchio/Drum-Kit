@@ -8,19 +8,30 @@ const audioMap = {
   l: "./assets/sounds/kick-bass.mp3",
 };
 
-function switchDrum(key) {
-  const audio = new Audio(audioMap[key]);
-  audio.play();
-}
-
 for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
   document.querySelectorAll(".drum")[i].addEventListener("click", (e) => {
     const btnInnerHTML = e.currentTarget.innerHTML;
     switchDrum(btnInnerHTML);
+    btnAnimation(btnInnerHTML);
   });
 }
 
 document.addEventListener("keydown", (e) => {
   const key = e.key;
   switchDrum(key);
+  btnAnimation(key);
 });
+
+function switchDrum(key) {
+  const audio = new Audio(audioMap[key]);
+  audio.play();
+}
+
+function btnAnimation(key) {
+  var activebtn = document.querySelector("." + key);
+  activebtn.classList.add("pressed");
+  console.log(activebtn);
+  setTimeout(() => {
+    activebtn.classList.remove("pressed");
+  }, 120);
+}
